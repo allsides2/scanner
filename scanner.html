@@ -1,0 +1,336 @@
+<html>
+<head>
+    <link rel="stylesheet" href="reset.css" type="text/css">
+    <link rel="stylesheet" href="index.css" type="text/css">
+    <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+</head>
+<style>
+
+@font-face {
+  font-family: 'DS-DIGIB';
+  src: url('DS-DIGIB.ttf') format('truetype');
+  /* Se a fonte estiver em um formato diferente, ajuste o 'format' conforme necessário */
+}
+    body {
+        background-color: transparent !important;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    #container {
+        display: block;
+        position: absolute;
+        top: 49%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgb(14 14 16);
+        height: 453px;
+        width: 899px;
+        border-radius: 20px;
+    }
+
+    .scanner {
+        height: 444px;
+        width: 900px;
+        position: absolute;
+        top: 70%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: transparent;
+        background-image: url(https://cdn.discordapp.com/attachments/1060339950027034704/1191603329877413928/scanner.png?ex=65a60a14&is=65939514&hm=abf7e9066aa8ef67bad541742872c43f01d18aa7ce28286a1da6146d9d27b2ad&);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        transition: all 0.7s ease;
+        border-radius: 0 0 20px 20px;
+    }
+
+    #sormenjalki-btn {
+    display: block;
+    position: absolute;
+    top: 70%;
+    left: 26%;
+    transform: translate(-50%, -50%);
+    background: transparent;
+    height: 250px;
+    width: 220px;
+}
+    #sormenjalki-btn:hover {
+        cursor: pointer;
+    }
+
+    .his-btn {
+    display: block;
+    background: rgb(35 35 35);
+    height: 30px;
+    width: 30px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 30px;
+    color: #fff;
+    font-family: arial;
+    text-transform: bold;
+    font-weight: 700;
+    font-size: 35px;
+    /* border: 2px solid gray; */
+}
+
+    .his-btn:hover {
+        cursor: pointer;
+    }
+
+    .scan {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .fingerprint {
+        left: -213px;
+        position: relative;
+        width: 300px;
+        height: 300px;
+        background: url(https://cdn.discordapp.com/attachments/1060339950027034704/1191518553304748123/fingerprint.png?ex=65a5bb20&is=65934620&hm=b047358468d5288c19818b976b1a456a1e97b73ce4ee41bfc5edea091ed9b17a&);
+        background-size: 300px;
+        top: 160px;
+        display: none; /* inicialmente oculto */
+    }
+
+    .fingerprint::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url(https://assets.codepen.io/4421919/fingerprint+%281%29.png);
+        background-size: 300px;
+        animation: animate 4s ease-in-out infinite;
+    }
+
+    @keyframes animate {
+        0%, 100% {
+            height: 0%;
+        }
+
+        50% {
+            height: 100%;
+        }
+    }
+
+    .fingerprint::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 8px;
+        background: #3fefef;
+        border-radius: 8px;
+        filter: drop-shadow(0 0 20px #3fefef) drop-shadow(0 0 60px #3fefef);
+        animation: animate_line 4s ease-in-out infinite;
+    }
+
+    @keyframes animate_line {
+        0%, 100% {
+            top: 0%;
+        }
+
+        50% {
+            top: 100%;
+        }
+    }
+
+    .h3-scanning {
+        font-family: 'DS-DIGIB', Courier, monospace;
+        position: fixed;
+    top: 110px;
+    left: 563px;
+        text-transform: uppercase;
+        font-size: 2em;
+        letter-spacing: 2px;
+        margin-top: 20px;
+        color: #3fefef;
+        filter: drop-shadow(0 0 20px #3fefef) drop-shadow(0 0 60px #3fefef);
+        animation: animate_text 0.5s steps(1) infinite;
+        display: none; /* inicialmente oculto */
+    }
+    .h3-scanning1 {
+        position: relative;
+        top: 119px;
+    left: 205px;
+        text-transform: uppercase;
+        font-size: 2em;
+        letter-spacing: 2px;
+        margin-top: 20px;
+        color: #085508;
+        filter: drop-shadow(0 0 20px #085508) drop-shadow(0 0 60px #085508);
+        animation: animate_text 2s steps(20) infinite;
+        display: none; /* inicialmente oculto */
+    }
+
+    @keyframes animate_text {
+        0%, 100% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
+    .imgdelf {
+    width: 296px;
+    height: 300px;
+    position: relative;
+    top: -31px;
+    left: -35px;
+    
+}
+
+.hidden {
+            display: none;
+        }
+.numberpad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 3px;
+    max-width: 198px;
+    margin: 20px auto;
+    position: fixed;
+    top: 193px;
+    left: 548px;
+    }
+
+    .button {
+        height: 49px;
+    width: 61px;
+    padding: 15px;
+    font-size: 18px;
+    text-align: center;
+    background-color: #e0e0e0;
+    color: #333;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    }
+
+    .button:hover {
+      background-color: #d4d4d4;
+    }
+    .scanStatus{
+        position: fixed;
+    }
+    #horasTrabalhadas{
+        font-family: 'DS-DIGIB', Courier, monospace;
+    position: fixed;
+    top: 454px;
+    left: 481px;
+    text-transform: uppercase;
+    font-size: 2em;
+    letter-spacing: 2px;
+    margin-top: 20px;
+    color: #fdfdfd96;
+    filter: drop-shadow(0 0 20px #b9b9b9) drop-shadow(0 0 60px #b9b9b9);
+        
+    }
+</style>
+<body>
+    <div id="container">
+        <div class="scanner" id="scanner"></div>
+        <div id="sormenjalki-btn" class="his-btn" onclick="startScan()">
+            <img class="imgdelf" src="https://cdn.discordapp.com/attachments/1060339950027034704/1191518553304748123/fingerprint.png?ex=65a5bb20&is=65934620&hm=b047358468d5288c19818b976b1a456a1e97b73ce4ee41bfc5edea091ed9b17a&" alt="">
+        </div>
+        <div class="scan">
+            <div class="fingerprint" id="fingerprint"></div>
+            <h3 class="h3-scanning" id="scanStatus">Scanning...</h3>
+            <!-- Adicione o seguinte bloco abaixo do teclado numérico -->
+            <h3 id="horasTrabalhadas" class="scanStatus hidden"></h3>
+            <div class="numberpad">
+                <button class="button">1</button>
+                <button class="button">2</button>
+                <button class="button">3</button>
+                <button class="button">4</button>
+                <button class="button">5</button>
+                <button class="button">6</button>
+                <button class="button">7</button>
+                <button class="button">8</button>
+                <button class="button">9</button>
+                <button class="button">0</button>
+                <button class="button">*</button>
+                <button class="button">#</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let isPlayerOnJob = false;
+        let OPENNUI = 0;
+
+        function startScan() {
+            OPENNUI = OPENNUI + 1;
+            document.querySelector('.imgdelf').disabled = true;
+            document.querySelector('.imgdelf').style.transition = 'opacity 0.7s ease-in-out';
+            document.querySelector('.imgdelf').style.opacity = '0';
+            document.getElementById('fingerprint').style.display = 'block';
+            document.getElementById('scanStatus').style.display = 'block';
+            document.getElementById('fingerprint').style.animation = 'none';
+            document.getElementById('fingerprint').offsetHeight;
+            document.getElementById('fingerprint').style.animation = null;
+
+            let serviceMessage, statusColor;
+            if (isPlayerOnJob) {
+                serviceMessage = 'Checando...';
+                statusColor = '#FF0000'; // Vermelho
+            } else {
+                serviceMessage = 'Checando...';
+                statusColor = '#0000FF'; // Azul
+            }
+
+            if (OPENNUI == 1) {
+                document.getElementById('scanStatus').innerText = serviceMessage;
+                document.getElementById('scanStatus').style.color = '#0000FF'; // Azul
+            }
+
+            setTimeout(() => {
+                let info = {
+                    name: "teste",
+                    isJob: isPlayerOnJob,
+                    isPolice: true,
+                    horasTrabalhadas: 10,
+                };
+
+                if (isPlayerOnJob) {
+                    document.querySelector('.imgdelf').src = 'https://cdn.discordapp.com/attachments/1060339950027034704/1191530794850721816/f93c94129b6b89c40b9a77c91efd4f5f_1.png?ex=65a5c687&is=65935187&hm=f4124fcb9df14c45a14975fb9b361fe766c2a17854addb4e0ebda6c4e2d78dfd&';
+                } else {
+                    document.querySelector('.imgdelf').src = 'https://cdn.discordapp.com/attachments/1060339950027034704/1191518553304748123/fingerprint.png?ex=65a5bb20&is=65934620&hm=b047358468d5288c19818b976b1a456a1e97b73ce4ee41bfc5edea091ed9b17a&';
+                }
+
+                if (OPENNUI == 1) {
+                    // Adicione o seguinte bloco para exibir as horas trabalhadas
+                    if (isPlayerOnJob) {
+                        document.getElementById('horasTrabalhadas').innerText = `Horas Trabalhadas: ${info.horasTrabalhadas}`;
+                        document.getElementById('horasTrabalhadas').classList.remove('hidden');
+                    } else {
+                        document.getElementById('horasTrabalhadas').classList.add('hidden');
+                    }
+                }
+
+                let fingerprintElements = document.getElementsByClassName('fingerprint');
+                for (let i = 0; i < fingerprintElements.length; i++) {
+                    fingerprintElements[i].style.display = 'none';
+                }
+
+                document.querySelector('.imgdelf').disabled = false;
+                document.querySelector('.imgdelf').style.opacity = '1';
+
+                serviceMessage = isPlayerOnJob ? 'Em serviço' : 'Sem serviço';
+                statusColor = isPlayerOnJob ? '#008000' : '#FF0000';
+                document.getElementById('scanStatus').innerText = serviceMessage;
+                document.getElementById('scanStatus').style.color = statusColor;
+                document.getElementById('scanStatus').style.filter = `drop-shadow(0 0 20px ${statusColor}) drop-shadow(0 0 60px ${statusColor})`;
+            }, 3000);
+
+            isPlayerOnJob = !isPlayerOnJob;
+        }
+    </script>
+</body>
+</html>
