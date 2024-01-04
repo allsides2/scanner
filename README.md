@@ -15,4 +15,4 @@
 
 1. Clone este repositório no diretório resources do seu servidor FiveM.
    ```bash
-   git clone https://github.com/seu-usuario/PontoScript.git
+   git clone [https://github.com/allsides2/scanner.git](https://github.com/allsides2/scanner/tree/master)
