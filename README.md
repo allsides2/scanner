@@ -11,8 +11,15 @@
 - Ranking de horas trabalhadas.
 
 
+## Preview
+
+Codepen: [clique aqui](https://codepen.io/allsides/pen/jOJbjXa).
+
+
 ## Instalação
 
 1. Clone este repositório no diretório resources do seu servidor FiveM.
    ```bash
    git clone https://github.com/allsides2/scanner
+
+
