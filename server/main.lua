@@ -9,13 +9,16 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-local scanner = {}
-Tunnel.bindInterface("scanner", scanner)
+local scannerC = {}
+Tunnel.bindInterface("scanner", scannerC)
 vCLIENT = Tunnel.getInterface("scanner")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- Prepares
 -----------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("scanner/GetRanking", "SELECT * FROM  ALSD_scanner ORDER BY jobTime")
+vRP.prepare("scanner/GetRanking", "SELECT * FROM ALSD_scanner ORDER BY jobTime")
+
+vRP.prepare("scanner/GetTimeJob", "SELECT jobTime FROM ALSD_scanner WHERE id = @id")
+vRP.prepare("scanner/updateJobTime","UPDATE ALSD_scanner SET jobTime = @jobTime WHERE id = @id")
 
 vRP.prepare("scanner/CreateHistory","INSERT INTO ALSD_scanner(id,playerId,history,jobTime,salario,created,lastUpgrade,newRole,isOnline) VALUES(@id,@playerId,@history,@jobTime,@salario,@created,@lastUpgrade,@newRole,@isOnline)")
  
@@ -25,6 +28,31 @@ vRP.prepare("scanner/CreateHistory","INSERT INTO ALSD_scanner(id,playerId,histor
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- Variables
 -----------------------------------------------------------------------------------------------------------------------------------------
+
+function vCLIENT.getTimeJob()
+    local source = source
+    local id = vRP.getUserId(source)
+    if id then
+        local TimeJob = vRP.query("scanner/GetTimeJob",{ id = id })
+        return TimeJob[1] or false
+    end
+
+end
+
+
+function vCLIENT.setTimeJob(time)
+    local source = source
+    local time = time
+    local id = vRP.getUserId(source)
+    if id then
+        vRP.execute("scanner/updateJobTime",{ id = id, jobTime = time })
+        return
+    end
+
+
+end
+
+/*
 
 CREATE TABLE ALSD_scanner (
     id INT PRIMARY KEY,
@@ -37,3 +65,5 @@ CREATE TABLE ALSD_scanner (
     newRole VARCHAR(255),
     isOnline BOOLEAN
 );
+
+*/
