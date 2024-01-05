@@ -13,3 +13,30 @@ vSERVER = Tunnel.getInterface("calladmin")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VARIABLES
 -----------------------------------------------------------------------------------------------------------------------------------------
+
+
+RegisterCommand("abrirNUI", function()
+    TriggerEvent("abrirNUI", "Olá da parte do cliente!")
+end)
+
+RegisterNetEvent("abrirNUI")
+AddEventHandler("abrirNUI", function(message)
+    SendNUIMessage({
+        openUI = true,
+        message = message
+    })
+end)
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+-- THREAD-JOB-TIME
+-----------------------------------------------------------------------------------------------------------------------------------------
+isjobbing = false
+
+CreateThread(function()
+	while isjobbing do
+        
+
+
+		Wait(1000)
+	end
+end)

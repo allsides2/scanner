@@ -1,6 +1,4 @@
 
-
-
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- VRP
 -----------------------------------------------------------------------------------------------------------------------------------------
@@ -11,19 +9,31 @@ vRP = Proxy.getInterface("vRP")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- CONNECTION
 -----------------------------------------------------------------------------------------------------------------------------------------
-local Hypex = {}
-Tunnel.bindInterface("calladmin", Hypex)
-vCLIENT = Tunnel.getInterface("calladmin")
+local scanner = {}
+Tunnel.bindInterface("scanner", scanner)
+vCLIENT = Tunnel.getInterface("scanner")
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- Prepares
 -----------------------------------------------------------------------------------------------------------------------------------------
-vRP.prepare("calladmin/GetRanking", "SELECT * FROM calladminranking ORDER BY Passport")
-vRP.prepare("calladmin/CheckPassport", "SELECT Passport FROM CallAdminRanking WHERE Passport = @Passport")
-vRP.prepare("calladmin/AddToRanking",
-    "INSERT INTO CallAdminRanking(Passport, Name,Rating, TotalTicket) VALUES (@Passport, @Name, @Rating, @TotalTicket)")
-vRP.prepare("calladmin/IncrementTicket",
-    "UPDATE CallAdminRanking SET TotalTicket = TotalTicket + 1 WHERE Passport = @Passport")
-vRP.prepare("calladmin/ResetAll", "DELETE FROM CallAdminRanking")
+vRP.prepare("scanner/GetRanking", "SELECT * FROM  ALSD_scanner ORDER BY jobTime")
+
+vRP.prepare("scanner/CreateHistory","INSERT INTO ALSD_scanner(id,playerId,history,jobTime,salario,created,lastUpgrade,newRole,isOnline) VALUES(@id,@playerId,@history,@jobTime,@salario,@created,@lastUpgrade,@newRole,@isOnline)")
+ 
+--INSERT INTO ALSD_scanner (id,playerId, history, jobTime, salario, newRole, isOnline,created,lastUpgrade) 
+--VALUES (1,3, '{"teste2"}', 100, 5000, 'Soldado', FALSE,CURRENT_TIMESTAMP,CURRENT_TIMESTAMP);
+
 -----------------------------------------------------------------------------------------------------------------------------------------
 -- Variables
 -----------------------------------------------------------------------------------------------------------------------------------------
+
+CREATE TABLE ALSD_scanner (
+    id INT PRIMARY KEY,
+    playerId INT,
+    history LONGTEXT,
+    jobTime INT,
+    salario INT,
+    created DATE,
+    lastUpgrade DATE,
+    newRole VARCHAR(255),
+    isOnline BOOLEAN
+);
